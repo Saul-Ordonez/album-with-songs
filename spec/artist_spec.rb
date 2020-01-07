@@ -5,6 +5,8 @@ require 'rspec'
 describe '#Artist' do
   before(:each) do
     Artist.clear()
+    Song.clear()
+    Album.clear()
     @artist = Artist.new({:name => 'John Coltrane', :id => nil})
     @artist.save()
   end
@@ -18,6 +20,7 @@ describe '#Artist' do
       expect(@artist).to(eq(artist2))
       expect(@artist).not_to(eq(artist3))
     end
+
   end
 
   describe('#update') do
@@ -28,6 +31,13 @@ describe '#Artist' do
       album.save()
       artist.update({:album_name => 'A Love Supreme'})
       expect(artist.albums).to(eq([album]))
+    end
+
+    it('updates an artist by id') do
+      artist = Artist.new({:name => 'Wu-Tang Clan', :id => nil})
+      artist.save()
+      artist.update({:name => "A Tribe Called Quest"})
+      expect(artist.name).to(eq("A Tribe Called Quest"))
     end
   end
 
@@ -41,8 +51,8 @@ describe '#Artist' do
 
   describe('.clear') do
     it('clears all artists') do
-      artist = Artist.new({:name => 'Blonde on Blonde', :id => nil})
-      artist2 = Artist.new({:name => 'Highway 61 Revisited', :id => nil})
+      artist = Artist.new({:name => 'Bob Dylan', :id => nil})
+      artist2 = Artist.new({:name => 'Wu-Tang Clan', :id => nil})
       artist.save()
       artist2.save()
       Artist.clear()
@@ -54,7 +64,10 @@ describe '#Artist' do
     it('finds and artist by id') do
       artist = Artist.new({:name => 'John Coltrane', :id => nil})
       artist.save()
+      artist2 = Artist.new({:name => 'Theolonius Monk', :id => nil})
+      artist2.save()
       expect(Artist.find(artist.id)).to(eq(artist))
+      expect(Artist.find(artist2.id)).to(eq(artist2))
     end
   end
 

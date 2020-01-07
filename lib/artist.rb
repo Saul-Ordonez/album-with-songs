@@ -32,7 +32,7 @@ class Artist
       @name = attributes.fetch(:name)
       DB.exec("UPDATE artists SET name = '#{@name}' WHERE id = #{@id};")
     end
-    album_name = attributes.fetch(:album_name)
+    album_name = attributes.fetch(:album_name, nil)
     if album_name != nil
       album = DB.exec("SELECT * FROM albums WHERE lower(name)='#{album_name.downcase}';").first
       if album != nil

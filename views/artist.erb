@@ -1,1 +1,5 @@
-<h2>Artist: <%= @artist.name %> </h2>
+<% if @artist %>
+<h2>Artist: <%= @artist.name %></h2>
+<% else %>
+<h2>Hmm, can't find that artist.</h2>
+<% end %>

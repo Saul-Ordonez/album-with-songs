@@ -63,10 +63,10 @@ class Artist
   end
 
   def self.find(id)
-    artist = DB.exec("SELECT * FROM albums_artists WHERE id = #{id};").first
+    artist = DB.exec("SELECT * FROM artists WHERE id = #{id};").first
     if artist
     name = artist.fetch("name")
-    id = album.fetch("id").to_i
+    id = artist.fetch("id").to_i
     Artist.new({:name => name, :id => id})
     else
       nil

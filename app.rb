@@ -38,12 +38,14 @@ get('/albums/:id') do
   erb(:album)
 end
 
-post('/albums') do
+post ('/albums') do
   name = params[:album_name]
-  album = Album.new(name, nil, nil, nil, nil)
+  year = params[:year]
+  genre= params[:genre]
+  artist = params[:artist]
+  album = Album.new({:name => name, :id => nil, :year => year, :genre => genre, :artist => artist})
   album.save()
-  @albums = Album.all() # Adding this line will fix the error.
-  erb(:albums)
+  redirect to('/albums')
 end
 
 get('/albums/:id/edit') do

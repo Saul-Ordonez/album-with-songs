@@ -1,9 +1,12 @@
 class Album
-  attr_accessor :name, :id
+  attr_accessor :name, :id, :year, :genre, :artist
 
   def initialize(attributes) ##CHANGE # We've added id as a second parameter.
     @name = attributes.fetch(:name)
     @id = attributes.fetch(:id)
+    @year = attributes.fetch(:year, nil)
+    @genre = attributes.fetch(:genre, nil)
+    @artist = attributes.fetch(:artist, nil)
   end
 
   def self.all
@@ -38,13 +41,22 @@ class Album
   def self.find(id)
     album = DB.exec("SELECT * FROM albums WHERE id = #{id};").first
     name = album.fetch("name")
+    year = album.fetch("year")
+    genre = album.fetch("genre")
+    artist = album.fetch("artist")
     id = album.fetch("id").to_i
-    Album.new({:name => name, :id => id})
+    Album.new({:name => name, :id => id, :year => year, :genre => genre, :artist => artist})
   end
 
-  def update(name)
-    @name = name
-    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id}")
+  def update(name, year, genre, artist)
+    @name = (name != '') ? name : @name
+    @year = (year != '') ? year : @year
+    @genre = (genre != '') ? genre : @genre
+    @artist = (artist != '') ? artist : @artist
+    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+    DB.exec("UPDATE albums SET year = '#{@year}' WHERE id = #{@id};")
+    DB.exec("UPDATE albums SET genre = '#{@genre}' WHERE id = #{@id};")
+    DB.exec("UPDATE albums SET artist = '#{@artist}' WHERE id = #{@id};")
   end
 
   def delete

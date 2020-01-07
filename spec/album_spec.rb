@@ -10,8 +10,8 @@ require('spec_helper')
 
 describe('#==') do
   it("is the same album if it has the same attributes as another album") do
-    album = Album.new({:name => "Blue", :id => nil})
-    album2 = Album.new({:name => "Blue", :id => nil})
+    album = Album.new({:name => "Blue", :id => nil, :year => nil, :genre => nil, :artist => nil})
+    album2 = Album.new({:name => "Blue", :id => nil, :year => nil, :genre => nil, :artist => nil})
     expect(album).to(eq(album2))
   end
 end
@@ -25,9 +25,9 @@ end
 
 describe('#save') do
   it("saves an album") do
-    album = Album.new({:name => "Giant Steps", :id => nil}) # nil added as second argument
+    album = Album.new({:name => "Giant Steps", :id => nil, :year => nil, :genre => nil, :artist => nil})
     album.save()
-    album2 = Album.new({:name => "Blue", :id => nil}) # nil added as second argument
+    album2 = Album.new({:name => "Blue", :id => nil, :year => nil, :genre => nil, :artist => nil})
     album2.save()
     expect(Album.all).to(eq([album, album2]))
   end
@@ -56,10 +56,11 @@ end
 
 describe('#update') do
   it("updates an album by id") do
-    album = Album.new({:name => "Giant Steps", :id => nil})
+    album = Album.new({:name => "Giant Steps", :id => nil, :year => nil, :genre => nil, :artist => nil})
     album.save()
-    album.update("A Love Supreme")
+    album.update("A Love Supreme", 1994, "Jazz", "Alice Coltrane")
     expect(album.name).to(eq("A Love Supreme"))
+    expect(album.year).to(eq(1994))
   end
 end
 

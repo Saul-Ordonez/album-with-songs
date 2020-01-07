@@ -7,7 +7,7 @@ class Artist
   end
 
   def self.all
-    returned_artists = DB.exec("SELECT * FROM albums_artists;")
+    returned_artists = DB.exec("SELECT * FROM artists;")
     artists = []
     returned_artists.each() do |artist|
       name = artist.fetch('name')
@@ -64,9 +64,13 @@ class Artist
 
   def self.find(id)
     artist = DB.exec("SELECT * FROM albums_artists WHERE id = #{id};").first
+    if artist
     name = artist.fetch("name")
     id = album.fetch("id").to_i
-    Album.new({:name => name, :id => id})
+    Artist.new({:name => name, :id => id})
+    else
+      nil
+    end
   end
 
   def ==(artist_to_compare)

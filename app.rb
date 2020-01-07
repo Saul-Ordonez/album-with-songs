@@ -115,7 +115,7 @@ get('/artists/new') do
 end
 
 get('/artist/:id') do
-  artist = Artist.find(params[:id].to_i())
+  @artist = Artist.find(params[:id].to_i())
   erb(:artist)
 end
 

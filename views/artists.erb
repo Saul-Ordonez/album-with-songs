@@ -2,9 +2,9 @@
 
 <h3>Artists</h3>
 
-<% if @artist.any? %>
+<% if @artists.any? %>
 <ul>
-  <% @artist.each do |artist| %>
+  <% @artists.each do |artist| %>
     <li><a href="/artist/<%= artist.id %>"><%= artist.name %></a></li>
   <% end %>
 </ul>

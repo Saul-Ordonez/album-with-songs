@@ -126,16 +126,17 @@ post('/artists') do
   redirect to('/artists')
 end
 
-patch('/artist/:id') do
+patch('/artists/:id') do
   @artist = Artist.find(params[:id].to_i())
   values = *params.values
-  @artist.update(values[1])
+  @artist.update(params)
   @artists = Artist.all
+  erb(:artists)
 end
 
-delete('/artist/:id') do
-  @artist = Artist.find(params[:id].to_i())
-  @artist.delete
-  @artist = Artist.all
-  erb('/artists')
+delete('/artists/:id') do
+  artist = Artist.find(params[:id].to_i())
+  artist.delete
+  @artists = Artist.all
+  erb(:artists)
 end

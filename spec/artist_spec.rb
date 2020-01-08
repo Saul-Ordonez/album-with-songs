@@ -60,7 +60,7 @@ describe '#Artist' do
     end
   end
 
-  describe('find') do
+  describe('.find') do
     it('finds and artist by id') do
       artist = Artist.new({:name => 'John Coltrane', :id => nil})
       artist.save()
@@ -68,6 +68,16 @@ describe '#Artist' do
       artist2.save()
       expect(Artist.find(artist.id)).to(eq(artist))
       expect(Artist.find(artist2.id)).to(eq(artist2))
+    end
+  end
+
+  describe('#delete') do
+    it('deletes an artist by id') do
+      artist = Artist.new({:name => 'Yabba Dabba', :id => nil})
+      artist.save()
+      artist.delete()
+      @artist.delete()
+      expect(Artist.all).to(eq([]))
     end
   end
 

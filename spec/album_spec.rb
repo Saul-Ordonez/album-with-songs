@@ -83,7 +83,6 @@ describe('.search') do
     album2.save()
     album3 = Album.new({:name => "Green Steps", :id => nil})
     album3.save()
-
     expect(Album.search("Steps")).to(eq([album1,album3]))
   end
 end
